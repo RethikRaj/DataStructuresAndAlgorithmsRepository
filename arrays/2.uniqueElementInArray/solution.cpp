@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,6 +15,7 @@ int findUnique(vectot<int> &arr){
     return res;
 }
 
+// 2*UniqueSum - TotalSum
 int findUnique2(vector<int> &arr){
     unordered_set<int> us;
     int uniqueSum = 0;
@@ -30,3 +33,30 @@ int findUnique2(vector<int> &arr){
 
 }
 
+// Hashing and then counting
+int findUnique3(vector<int> &arr){
+    unordered_map<int,int> mp;
+
+    for(int ele : arr){
+        mp[ele]++;
+    }
+
+    for(auto it : mp){
+        if(it.second == 1){
+            return it.first;
+        }
+    }
+    return -1;
+}
+
+// Sorting and then counting
+int findUnique4(vector<int> &arr){
+    sort(arr.begin(),arr.end());
+
+    for(int i=0;i<arr.size()-1;i++){
+        if(arr[i] != arr[i+1]){
+            return arr[i];
+        }
+    }
+    return arr[arr.size()-1];
+}
